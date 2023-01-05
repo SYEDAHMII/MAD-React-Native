@@ -1,0 +1,301 @@
+APP.JS
+import * as React from 'react';
+import { Text,StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
+import loginscreen from './Login';
+import home from './home';
+import Myprofile from './profile';
+import Mysetting from './SettingsScreen';
+import { MAP_TYPES } from 'react-native-maps';
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+      initialRouteName='loginscreen'
+      >
+        <Tab.Screen options={{
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ color, size }) => (
+        <Ionicons name="home" color={color} size={size} />
+      ),
+    }} name="Home" component={home} />
+
+        <Tab.Screen options={{
+      tabBarLabel: 'profile',
+      tabBarIcon: ({ color, size }) => (
+        <Ionicons name="bulb" color={color} size={size} />
+      ),
+    }}  name="profile" component={Myprofile} />
+
+
+
+        <Tab.Screen options={{
+      tabBarLabel: 'setting',
+      tabBarIcon: ({ color, size }) => (
+        <Ionicons name="settings" color={color} size={size} />
+      ),
+    }} name="setting" component={Mysetting} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'purple',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+
+
+
+
+HOME.JS
+//import liraries
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+// create a component
+const Home= (props) => {
+    return (
+        <View style={styles.container}>
+            <Text>welcome to home screen</Text>
+            <Button
+                onpress={()=>{props.navigation.navigate("Myprofile")}}
+                title="go to profile screen">
+            </Button>
+            <Button
+                onpress={()=>{props.navigation.navigate("Mysetting")}}
+                title="go to Mysetting">
+            </Button>
+
+        </View>
+    );
+};
+
+// define your styles
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'grey',
+    },
+});
+
+export default Home;
+
+
+
+MY PROFILE.JS
+//import liraries
+import React, { Component } from 'react';
+import { View, Text, StyleSheet ,Button} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// create a component
+const Myprofile = (props) => {
+    return (
+        <View style={styles.container}>
+            <Text>welcome to my profile</Text>
+            <Button
+                onpress={()=>{props.navigation.navigate("Myprofile")}}
+                title="go  back to home">
+            </Button>
+            
+        </View>
+    );
+};
+
+// define your styles
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'grey',
+    },
+});
+
+//make this component available to the app
+export default Myprofile;
+
+
+
+MY SETTING.JS
+//import liraries
+import React, { Component } from 'react';
+import { View, Text, StyleSheet ,Button} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// create a component
+const Mysetting = () => {
+  return (
+    <View style={styles.container}>
+      <Text>welcome to setting screen</Text>
+      <Button
+                onpress={()=>{props.navigation.navigate("Myprofile")}}
+                title="go to home screen">
+            </Button>
+            <Button
+                onpress={()=>{props.navigation.navigate("Mysetting")}}
+                title="go to profile screen">
+            </Button>
+
+    </View>
+  );
+};
+
+// define your styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'grey',
+  },
+});
+
+//make this component available to the app
+export default Mysetting;
+
+
+LOGIN.JS
+
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// create a component
+const loginscreen = () => {
+    return (
+        <View style={styles.maincontainer}>
+            <Text style={styles.mainheader}>
+                Login Form
+            </Text>
+        <view style={styles.inputContainer}>
+            <Text style={styles.labels}>Enter your name</Text>
+            <TextInput style={styles.inputstyle}
+            autoCapitalize="none"
+            autoComplete={false}/>
+
+        </view>
+        <view style={styles.inputContainer}>
+            <Text style={styles.labels}>
+                Enter password
+                
+            </Text>
+            <TextInput style={styles.inputstyle}
+            secureTextEntry={true}>
+
+            </TextInput>
+
+        </view>
+    <TouchableOpacity   onpress={()=>{props.navigation.navigate("Home")}}
+           style={[
+        styles. loginBtn,
+        {backgroundColor:'pink'},
+    ]}>
+        <Text>
+            Login
+        </Text>
+
+    </TouchableOpacity>
+
+        </View>
+    );
+};
+
+// define your styles
+const styles = StyleSheet.create({
+    maincontainer: {
+        height: "100%",
+        paddingHorizontal: 30,
+        paddingTop:30,
+        backgroundColor: "purple",
+    },
+
+        mainheader : {
+        fontsize:50,
+        color:'pink',
+        fontWeight:"500",
+        paddingTop:40,
+        paddingBottom:15,
+        textTransform:"capitalize",
+        fontFamily:"bold"
+    
+          
+        },
+       
+        labels: {
+          marginBottom: 5,
+          fontSize:18,
+          color:"pink",
+          marginTop:10,
+          lineHeight:25,
+          fontFamily:'regular',
+        },
+       inputContainer:{
+        marginTop:20,
+       },
+        inputView: {
+          backgroundColor: "#FFC0CB",
+          borderRadius: 30,
+          width: "70%",
+          height: 45,
+          marginBottom:40,
+       
+          alignItems: "center",
+        },
+       inputstyle:{
+        borderWidth:1,
+        borderColor:"green",
+        paddingHorizontal:15,
+        paddingVertical:7,
+        borderRadius:1,
+        fontFamily:"regular",
+        fontsize:18,
+       },
+        TextInput: {
+          height: 50,
+          flex: 1,
+          padding: 10,
+          marginLeft: 20,
+        },
+       
+        forgot_button: {
+          height: 30,
+          marginBottom: 30,
+        },
+       
+        loginBtn: {
+          width: "80%",
+          borderRadius: 25,
+          height: 50,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 40,
+          backgroundColor: "#FF1493",
+        },
+      });
+
+//make this component available to the app
+export default loginscreen;
+
+
+
